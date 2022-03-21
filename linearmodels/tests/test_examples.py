@@ -24,11 +24,8 @@ try:
     if plat_win and sys.version_info >= (3, 8):  # pragma: no cover
         import asyncio
 
-        try:
+        if sys.platform == 'win32':
             from asyncio import WindowsSelectorEventLoopPolicy
-        except ImportError:
-            pass  # Can't assign a policy which doesn't exist.
-        else:
             pol = asyncio.get_event_loop_policy()
             if not isinstance(pol, WindowsSelectorEventLoopPolicy):
                 asyncio.set_event_loop_policy(WindowsSelectorEventLoopPolicy())
